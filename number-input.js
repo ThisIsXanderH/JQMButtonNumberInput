@@ -1,4 +1,4 @@
-// Add/Subtract Number Input v1.4.1
+// Add/Subtract Number Input v1.4.2
 // Created by Xander, TurtleEmpire.com
 // Released under MIT License
 /* USAGE:
@@ -80,6 +80,7 @@ $(document).on('click','.numberInputMinus',function() {
 		$(parent).data('val',current);
 		$(parent).trigger('change');
 	}
+	return false; //This prevent it from sending forms
 });
 
 $(document).on('click','.numberInputPlus',function() {

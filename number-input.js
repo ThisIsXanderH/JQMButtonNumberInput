@@ -8,7 +8,8 @@ id			-	The id is used for creating ids to child element. Can be anything.
 class		-	Set to numberInput to signal this code should run for it
 data-min	-	Minimum number allowed for display
 data-max	-	Maximum number allowed for display (Must be larger than data-min)
-data-init	-	Initial number shown on display (Must be within min and max)
+data-init	-	Initial number shown on display (Must be within min and max). 
+data-val	-	Current number shown on display (Assigned through code). 
 
 HTML Output Structure (Formatted for readability)-
 <div id="demoDiv" class="numberInput" data-min="0" data-max="10" data-init="3">
@@ -44,30 +45,37 @@ $(document).ready(function(e) {
 		btnPlus = '<button id="'.concat(divID,'Plus" class="ui-btn ui-corner-all ui-icon-plus ui-btn-icon-notext ui-btn-inline numberInputPlus" data-display="',divID,'Display"></button>');
 		display = '<div id="'.concat(divID,'Display" class="numberInputDisplay">',numInit.toString(),'</span>');
 		$(this).html(btnMinus.concat(btnPlus,display));
+		$(this).data('val',numInit);
 	});
-	
+	/* TODO: Fine more elegant way to retrieve value. Perhaps hidden <input>? */
 });
 
 $(document).on('click','.numberInputMinus',function() {
-	console.log('Start');
-	//Check current against minimum, subtract 1 and update display if bigger
-	var display = '#'.concat($(this).data('display'));
+	//Check current against minimum, subtract 1 and update display if bigger. Triggers change() for parent div.
+	var display = '#'.concat($(this).data('display')),
+	parent = '#'.concat($(this).parent().attr('id')),
 	current = parseInt($(display).text()),
 	numMin = parseInt($(this).parent().data('min'));
 	if(current > numMin) {
 		current -= 1;
 		$(display).text(current.toString());
+		$(parent).data('val',current);
+		$(parent).trigger('change');
 	}
-	console.log('End');
 });
 
 $(document).on('click','.numberInputPlus',function() {
-	//Check current against maximum, add 1 and update display if smaller
-	var display = '#'.concat($(this).data('display'));
+	//Check current against maximum, add 1 and update display if smaller. Triggers change() for parent div.
+	var display = '#'.concat($(this).data('display')),
+	parent = '#'.concat($(this).parent().attr('id')),
 	current = parseInt($(display).text()),
 	numMax = parseInt($(this).parent().data('max'));
 	if(current < numMax) {
 		current += 1;
 		$(display).text(current.toString());
+		$(parent).data('val',current);
+		$(parent).trigger('change');
 	}
 });
+
+/* TODO: Condense both down to one function */

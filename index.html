@@ -19,6 +19,12 @@
 <!-- Include the JQM Button Number Input js file-->
 <script src="number-input.js"></script>
 
+<script>
+	//Alert on change to the third one
+	$(document).on('change','#numberTest3',function() {
+		alert($(this).data('val'));
+	});
+</script>
 <meta charset="utf-8">
 <title>JQM Button Number Input Demo</title>
 </head>
@@ -29,7 +35,7 @@
         <div id="numberTest1" class="numberInput" data-min="0" data-max="10" data-init="5"></div><br>
         -10 - 10<br>
         <div id="numberTest2" class="numberInput" data-min="-10" data-max="10" data-init="0"></div><br>
-        10 - 20<br>
+        10 - 20, alert on change<br>
         <div id="numberTest3" class="numberInput" data-min="10" data-max="20" data-init="13"></div>
 </div>
 </body>

@@ -31,18 +31,36 @@ ui-btn ui-icon-minus ui-btn-icon-notext ui-btn-inline ui-corner-all		- These are
 
 Attributes - 
 data-display	- This is for internal purposes of referencing where to send changes on the button presses
+data-hasLimit	- This is for if the button has a max or min to adhere to
 </div>
 */
 $(document).ready(function(e) {
     $('.numberInput').each(function() {
 		var divID = $(this).attr('id'),
-		numMin = parseInt($(this).data('min')),
-		numMax = parseInt($(this).data('max')),
 		numInit = parseInt($(this).data('init')),
 		/* TODO: Add increment */
+		numMin,numMax,
 		btnMinus,btnPlus,display;
-		btnMinus = '<button id="'.concat(divID,'Minus" class="ui-btn ui-corner-all ui-icon-minus ui-btn-icon-notext ui-btn-inline numberInputMinus" data-display="',divID,'Display"></button>');
-		btnPlus = '<button id="'.concat(divID,'Plus" class="ui-btn ui-corner-all ui-icon-plus ui-btn-icon-notext ui-btn-inline numberInputPlus" data-display="',divID,'Display"></button>');
+		
+		if (typeof $(this).data('min') !== 'undefined') {
+			numMin = parseInt($(this).data('min'));	
+			hasMin = true;		
+		} else {
+			numMin = 0;
+			hasMin = false;
+		}
+		
+		if (typeof $(this).data('max') !== 'undefined') {
+			numMax = parseInt($(this).data('max'));
+			hasMax = true;
+		} else {
+			numMax = 0;
+			console.log(numMax);
+			hasMax = false;
+		}
+		
+		btnMinus = '<button id="'.concat(divID,'Minus" class="ui-btn ui-corner-all ui-icon-minus ui-btn-icon-notext ui-btn-inline numberInputMinus" data-display="',divID,'Display" data-limited="',hasMin,'"></button>');
+		btnPlus = '<button id="'.concat(divID,'Plus" class="ui-btn ui-corner-all ui-icon-plus ui-btn-icon-notext ui-btn-inline numberInputPlus" data-display="',divID,'Display" data-limited="',hasMax,'"></button>');
 		display = '<div id="'.concat(divID,'Display" class="numberInputDisplay">',numInit.toString(),'</span>');
 		$(this).html(btnMinus.concat(btnPlus,display));
 		$(this).data('val',numInit);
@@ -55,8 +73,9 @@ $(document).on('click','.numberInputMinus',function() {
 	var display = '#'.concat($(this).data('display')),
 	parent = '#'.concat($(this).parent().attr('id')),
 	current = parseInt($(display).text()),
+	hasLimit = $(this).data('limited'),
 	numMin = parseInt($(this).parent().data('min'));
-	if(current > numMin) {
+	if(current > numMin || !hasLimit) {
 		current -= 1;
 		$(display).text(current.toString());
 		$(parent).data('val',current);
@@ -69,8 +88,9 @@ $(document).on('click','.numberInputPlus',function() {
 	var display = '#'.concat($(this).data('display')),
 	parent = '#'.concat($(this).parent().attr('id')),
 	current = parseInt($(display).text()),
+	hasLimit = $(this).data('limited'),
 	numMax = parseInt($(this).parent().data('max'));
-	if(current < numMax) {
+	if(current < numMax || !hasLimit) {
 		current += 1;
 		$(display).text(current.toString());
 		$(parent).data('val',current);

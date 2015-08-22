@@ -1,0 +1,36 @@
+<!doctype html>
+<html>
+<head>
+<!-- Include meta tag to ensure proper rendering and touch zooming -->
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Include jQuery Mobile stylesheets -->
+<link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css">
+
+<!-- JQM Button Number Input Stylesheet -->
+<link rel="stylesheet" href="number-input.css">
+
+<!-- Include the jQuery library -->
+<script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+
+<!-- Include the jQuery Mobile library -->
+<script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+
+<!-- Include the JQM Button Number Input js file-->
+<script src="number-input.js"></script>
+
+<meta charset="utf-8">
+<title>JQM Button Number Input Demo</title>
+</head>
+
+<body>
+<div id="main" class="page" data-role="page">
+		0-10<br>
+        <div id="numberTest1" class="numberInput" data-min="0" data-max="10" data-init="5"></div><br>
+        -10 - 10<br>
+        <div id="numberTest2" class="numberInput" data-min="-10" data-max="10" data-init="0"></div><br>
+        10 - 20<br>
+        <div id="numberTest3" class="numberInput" data-min="10" data-max="20" data-init="13"></div>
+</div>
+</body>
+</html>

@@ -1,0 +1,18 @@
+@charset "utf-8";
+/* CSS Document */
+
+.numberInput {
+	text-align:center;	
+}
+
+.numberInputDisplay {
+	line-height:45px; /* Without this the number tends toward the class */
+}
+
+.numberInputMinus {
+	float:left;
+}
+
+.numberInputPlus {
+	float:right;
+}

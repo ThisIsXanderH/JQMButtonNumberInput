@@ -1,4 +1,4 @@
-// Add/Subtract Number Input v1.0.0
+// Add/Subtract Number Input v1.4.1
 // Created by Xander, TurtleEmpire.com
 // Released under MIT License
 /* USAGE:
@@ -55,7 +55,6 @@ $(document).ready(function(e) {
 			hasMax = true;
 		} else {
 			numMax = 0;
-			console.log(numMax);
 			hasMax = false;
 		}
 		
@@ -96,6 +95,7 @@ $(document).on('click','.numberInputPlus',function() {
 		$(parent).data('val',current);
 		$(parent).trigger('change');
 	}
+	return false; //This prevent it from sending forms
 });
 
 /* TODO: Condense both down to one function */
